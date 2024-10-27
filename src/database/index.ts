@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { neon } from '@neon/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 
-declare global {
-  var prisma: PrismaClient | undefined;
-}
+import env from '@/env';
 
-const db = global.prisma || new PrismaClient();
-
-if (process.env.NODE_ENV === 'development') global.prisma = db;
+const sql = neon(env.NEXT_PUBLIC_DRIZZLE_DATABASE_URL);
+const db = drizzle(sql);
 
 export default db;
