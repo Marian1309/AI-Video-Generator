@@ -3,6 +3,8 @@ import type { FC, PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
+import { ClerkProvider } from '@clerk/nextjs';
+
 import './globals.scss';
 
 const figtree = Figtree({
@@ -20,9 +22,11 @@ type Props = PropsWithChildren;
 
 const RootLayout: FC<Props> = ({ children }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={figtree.variable}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={figtree.variable}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 };
 
